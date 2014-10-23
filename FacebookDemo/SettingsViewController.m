@@ -32,6 +32,7 @@
     
     [self.settingsTableView registerNib:[UINib nibWithNibName:@"SettingCell" bundle:nil] forCellReuseIdentifier:@"SettingCell"];
     self.settingsTableView.rowHeight = UITableViewAutomaticDimension;
+    self.selectedSettingIndex = 0;
 }
 
 - (void)onCloseButton {
@@ -49,7 +50,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingCell"];
-    
+
     if (indexPath.row == 0) {
         cell.settingNameLabel.text = @"Home Feed";
     } else if (indexPath.row == 1) {
@@ -59,10 +60,9 @@
     } else if (indexPath.row == 3) {
         cell.settingNameLabel.text = @"Books";
     }
-
+    
     cell.delegate = self;
-    cell.settingSwitch.selected = (indexPath.row == self.selectedSettingIndex);
-    NSLog(@"%d", indexPath.row == self.selectedSettingIndex);
+    [cell.settingSwitch setOn:(indexPath.row == self.selectedSettingIndex)];
     return cell;
 }
 
